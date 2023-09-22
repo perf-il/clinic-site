@@ -1,0 +1,37 @@
+{% extends 'clinic/base.html' %}
+{% load my_tags %}
+
+  {% block content %}
+     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+      <h1 class="">Наши доктора</h1>
+      <p class="lead">Список всех докторов клиники компьютерной диагностики</p>
+    </div>
+
+    <div class="container-lg mt-3">
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for item in object_list%}
+            <div class="col">
+              <div class="card h-100">
+                  {% if item.preview %}
+                    <img src='{% mediapath item.preview %}' class="card-img-top w-50 p-2 mx-auto d-block" alt="avatar">
+                  {% else %}
+                    <img src="media/avatars/avatar-round.png" class="card-img-top w-50 p-2 mx-auto d-block" alt="avatar">
+                  {% endif %}
+                  <div class="card-body mt-auto">
+                      <h5 class="card-title">{{ item.name }}</h5>
+                      <h6 class="card-title text-muted">{{ item.direction }}</h6>
+                      <p class="card-text">{{ item.description }}</p>
+                  </div>
+                  <div class="card-footer bg-transparent">
+                      <a class="btn btn-outline-primary" href="{% url 'clinic:schedule' %}" role="button">Расписание</a>
+                      <a class="btn btn-outline-dark mx-2" href="{% url 'clinic:doctor' item.pk %}" role="button">Подробнее</a>
+                  </div>
+              </div>
+            </div>
+        {% endfor %}
+
+      </div>
+    </div>
+
+
+  {% endblock %}

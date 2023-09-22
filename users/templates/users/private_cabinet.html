@@ -1,0 +1,121 @@
+{% extends 'clinic/base.html' %}
+{% load my_tags %}
+{% block content %}
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+      <h1 class="">Личный кабинет пользователя {{ current_user }}</h1>
+
+    </div>
+    <div class="container-lg">
+        <div class="row">
+            <div class="col-6">
+                <div class="card" style="max-width: 540px;">
+                    <div class="card-header h3 ">Карточка клиента</div>
+                    <div class="card-body mt-auto">
+                        <h5>E-mail:</h5>
+                        <p>{{ current_user.email }}</p>
+                        <div class="row">
+                            <div class="col-6">
+                                <h5>Имя:</h5>
+                                <p>{{ current_user.first_name }}</p>
+                            </div>
+                            <div class="col-6">
+                                <h5>Фамилия:</h5>
+                                <p> {{ current_user.last_name }}</p>
+                            </div>
+                        </div>
+                        <h5>Кол-во записей</h5>
+                        <ul>
+                            <li>Активных - {{ active_orders.count }}</li>
+                            <li>Завершенных - {{ closed_orders.count }}</li>
+                            <li>Отмененных - {{ canceled_orders.count }}</li>
+                            <li>Всего - {{ user_orders.count }}</li>
+                        </ul>
+                        <a class="btn btn-lg btn-outline-dark" href="{% url 'users:profile' %}" role="button">Редактировать</a>
+                    </div>
+
+                </div>
+                <div class="my-3 " style="max-width: 540px;">
+                    <a class="btn btn-lg btn-outline-primary w-100" href="{% url 'clinic:order_create' %}" role="button">Создать новую запись</a>
+                </div>
+
+            </div>
+            <div class="col-6">
+                <h3 class="">Активные записи:
+                    {% if active_orders.count == 0 %}
+                        нет
+                    {% endif %}
+                </h3>
+                {% for order in active_orders %}
+                    <div class="card mx-5 mt-3">
+                        <div class="card-header h5">
+                            <h5 class="card-title">{{ order.service }}</h5>
+                            <h6 class="card-subtitle text-muted">{{ order.service.direction }}</h6>
+                        </div>
+                        <div class="card-body mt-auto">
+                            <p><b>Дата и время:</b> {{ order.time }} {{ order.data }}</p>
+                            <p><b>Врач:</b> {{ order.doctor }}</p>
+                            <p><b>Стоимость услуг:</b>
+                                {% if order.price %}
+                                    ${{ order.price }}
+                                {% else %}
+                                    не указана
+                                {% endif %}
+                            </p>
+                            <a class="btn btn-outline-dark" href="{% url 'clinic:order_update' order.pk %}" role="button">Редактировать</a>
+                            <a class="btn btn-outline-danger mx-3" href="{% url 'clinic:order_delete' order.pk  %}" role="button">Отменить</a>
+                        </div>
+                    </div>
+                {% endfor %}
+                <h3 class="text-muted">Завершенные записи:
+                    {% if closed_orders.count == 0 %}
+                        нет
+                    {% endif %}
+                </h3>
+                {% for order in closed_orders %}
+                    <div class="card mx-5 mt-3">
+                        <div class="card-header h5">
+                            <h5 class="card-title">{{ order.service }}</h5>
+                            <h6 class="card-subtitle text-muted">{{ order.service.direction }}</h6>
+                        </div>
+                        <div class="card-body mt-auto">
+                            <p><b>Дата и время:</b> {{ order.time }} {{ order.data }}</p>
+                            <p><b>Врач:</b> {{ order.doctor }}</p>
+                            <p><b>Стоимость услуг:</b>
+                                {% if order.price %}
+                                    ${{ order.price }}
+                                {% else %}
+                                    не указана
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+                <h3 class="text-muted">Отмененные записи:
+                    {% if canceled_orders.count == 0 %}
+                        нет
+                    {% endif %}
+                </h3>
+                {% for order in canceled_orders %}
+                    <div class="card mx-5 mt-3">
+                        <div class="card-header h5">
+                            <h5 class="card-title">{{ order.service }}</h5>
+                            <h6 class="card-subtitle text-muted">{{ order.service.direction }}</h6>
+                        </div>
+                        <div class="card-body mt-auto">
+                            <p><b>Дата и время:</b> {{ order.time }} {{ order.data }}</p>
+                            <p><b>Врач:</b> {{ order.doctor }}</p>
+                            <p><b>Стоимость услуг:</b>
+                                {% if order.price %}
+                                    ${{ order.price }}
+                                {% else %}
+                                    не указана
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

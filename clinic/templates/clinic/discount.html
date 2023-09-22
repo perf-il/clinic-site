@@ -1,0 +1,45 @@
+{% extends 'clinic/base.html' %}
+{% load my_tags %}
+
+  {% block content %}
+     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+      <h1 class="">Скидки и акции</h1>
+      <p class="lead">Ознакомьтесь с перечнем услуг, на которые действуют специальные предложения</p>
+    </div>
+
+    <div class="container-lg mt-3">
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for item in discount_services%}
+            <div class="col">
+              <div class="card h-100">
+                  <div class="card-header h3 ">{{ item.title }}</div>
+                  <h5 class="card-header card-subtitle mb-2 text-muted">{{ item.direction }}</h5>
+
+                  {% if item.preview %}
+                    <img src='{% mediapath item.preview %}' class="card-img-top w-100 h-100 p-0 mx-auto d-block" alt="avatar">
+                  {% else %}
+                    <img src="media/avatars/avatar.png" class="card-img-top w-100 p-0 mx-auto d-block" alt="avatar">
+                  {% endif %}
+                  <div class="card-body mt-auto">
+
+                      <div class="row">
+
+                          <div class="col-6"><h3 class="card-price text-decoration-line-through text-muted text-center">${{ item.price }}</h3></div>
+                          <div class="col-6"><h2 class="card-price">${% multiplication item.price item.discount %}</h2></div>
+                      </div>
+
+                      <p class="card-text">{{ item.description | slice:150}}</p>
+                  </div>
+                  <div class="card-footer bg-transparent">
+                      <a class="btn btn-outline-primary" href="{% url 'clinic:order_create' %}" role="button">Записаться</a>
+                      <a class="btn btn-outline-dark mx-2" href="{% url 'clinic:service' item.id %}" role="button">Подробнее</a>
+                  </div>
+              </div>
+            </div>
+        {% endfor %}
+
+      </div>
+    </div>
+
+
+  {% endblock %}

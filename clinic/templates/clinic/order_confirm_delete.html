@@ -1,0 +1,21 @@
+{% extends 'clinic/base.html' %}
+  {% block content %}
+
+        <div class="container-lg">
+
+                <div class="">
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <h3>Вы уверены что хотите отметить запись на "{{ object.service }}"?</h3>
+                        <p class="my-3 text-center">
+                            <input type="submit" class="btn btn-lg btn-outline-danger" value="Отменить">
+                            <a href="{% url 'users:private_cabinet' user.pk %}" type="button" class="btn btn-lg btn-outline-dark">Вернуться</a>
+                        </p>
+                    </form>
+
+                </div>
+
+        </div>
+
+        {% endblock %}

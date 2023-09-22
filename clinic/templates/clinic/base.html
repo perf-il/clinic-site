@@ -1,0 +1,32 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <title>{{ title }}</title>
+  </head>
+  <body>
+
+    {% include 'clinic/includes/topmenu.html' %}
+
+    {% block content %}
+    {% endblock %}
+
+    {% include 'clinic/includes/footer.html' %}
+
+    <!-- Optional JavaScript -->
+    <!-- JavaScript for Bootstrap -->
+   <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+   <script src="{% static 'js/form.validations.js' %}"></script>
+
+    <!-- JavaScript for Google Maps -->
+   <script src="{% static 'js/gmaps.api.js' %}"></script>
+   <script src="{% static 'js/gmaps.setting.js' %}"></script>
+  </body>
+</html>
