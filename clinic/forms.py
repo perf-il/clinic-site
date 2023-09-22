@@ -3,7 +3,7 @@ import datetime
 from django import forms
 from django.forms import SelectDateWidget
 
-from clinic.models import Order, Service, Doctor, Schedule
+from clinic.models import Order, Schedule
 from clinic.utilits import get_week_days
 
 
@@ -73,4 +73,3 @@ class OrderForm(StyleFormMixin, forms.ModelForm):
                 raise forms.ValidationError(f'Время работы клиники '
                                             f'с {start_work.strftime("%H:%M")} до {end_work.strftime("%H:%M")}')
             return cleaned_data
-

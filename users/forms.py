@@ -55,4 +55,3 @@ class UserSetNewPasswordForm(SetPasswordForm):
                 'class': 'form-control',
                 'autocomplete': 'off'
             })
-

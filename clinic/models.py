@@ -54,7 +54,6 @@ class Doctor(models.Model):
     direction = models.ForeignKey(Direction, on_delete=models.SET_NULL, verbose_name='направление', **NULLABLE)
     preview = models.ImageField(upload_to='avatars/', default='avatars/avatar-round.png',
                                 verbose_name='изображение', **NULLABLE)
-    # working_days = models.CharField(max_length=1, choices=DAYS_OF_WEEK, verbose_name='дни приема')
     description = models.TextField(verbose_name='описание', **NULLABLE)
 
     class Meta:

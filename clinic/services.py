@@ -41,4 +41,3 @@ def send_email_delete_order(email, order: Order):
         settings.EMAIL_HOST_USER,
         email
     )
-

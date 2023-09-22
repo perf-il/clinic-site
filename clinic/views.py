@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse
 from django.views import generic
 
 from clinic.forms import OrderForm
@@ -124,12 +124,20 @@ class OrderCreateView(LoginRequiredMixin, generic.CreateView):
         return reverse('users:private_cabinet', kwargs={'pk': self.request.user.pk})
 
 
-class OrderUpdateView(generic.UpdateView):
+class OrderUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Order
     form_class = OrderForm
     extra_context = {
         'title': 'Редактировать запись'
     }
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        if self.request.user.is_superuser:
+            return self.object
+        if self.object.user != self.request.user:
+            raise Http404('Нет прав доступа')
+        return self.object
 
     def get_success_url(self):
         return reverse('users:private_cabinet', kwargs={'pk': self.request.user.pk})
@@ -142,11 +150,19 @@ class OrderUpdateView(generic.UpdateView):
         return super().form_valid(form)
 
 
-class OrderDeleteView(generic.DeleteView):
+class OrderDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Order
     extra_context = {
         'title': 'Удалить запись'
     }
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        if self.request.user.is_superuser:
+            return self.object
+        if self.object.user != self.request.user:
+            raise Http404('Нет прав доступа')
+        return self.object
 
     def get_success_url(self):
         return reverse('users:private_cabinet', kwargs={'pk': self.request.user.pk})
@@ -158,4 +174,3 @@ class OrderDeleteView(generic.DeleteView):
         success_url = self.get_success_url()
         self.object.delete()
         return HttpResponseRedirect(success_url)
-
