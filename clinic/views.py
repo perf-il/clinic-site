@@ -11,7 +11,7 @@ from config import settings
 
 
 def home(request):
-    print(settings.DEBUG)
+
     if request.method == 'POST':
         name = request.POST.get('name')
         phone = request.POST.get('phone')
