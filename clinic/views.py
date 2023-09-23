@@ -7,12 +7,12 @@ from django.views import generic
 from clinic.forms import OrderForm
 from clinic.models import Doctor, Service, Direction, Schedule, Order
 from clinic.services import send_email_new_order, send_email_update_order, send_email_delete_order
+from config import settings
 
 
 def home(request):
-
+    print(settings.DEBUG)
     if request.method == 'POST':
-        print(request.POST)
         name = request.POST.get('name')
         phone = request.POST.get('phone')
         email = request.POST.get('email')

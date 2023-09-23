@@ -28,9 +28,11 @@ load_dotenv(dotenv_path=dot_env)
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG')
+DEBUG = True if os.getenv('DJANGO_DEBUG').lower() == 'true' else False
 
-ALLOWED_HOSTS = ['*']
+IP_ADDRESS = os.getenv('IP')
+
+ALLOWED_HOSTS = [IP_ADDRESS]
 
 
 # Application definition
@@ -135,6 +137,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 ENV_TYPE = os.getenv('ENV_TYPE')
+
 if ENV_TYPE == 'local':
     STATICFILES_DIRS = (
         BASE_DIR / 'static',
