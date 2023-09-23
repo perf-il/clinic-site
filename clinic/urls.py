@@ -8,6 +8,7 @@ app_name = ClinicConfig.name
 
 urlpatterns = [
     path('', my_view.home, name='home'),
+    path('contacts', my_view.contacts, name='contacts'),
     path('discount', my_view.discount, name='discount'),
 
     path('doctors', my_view.DoctorsListView.as_view(), name='all_doctors'),
