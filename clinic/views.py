@@ -66,6 +66,22 @@ def schedule(request):
     return render(request, 'clinic/schedule.html', context)
 
 
+def contacts(request):
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        phone = request.POST.get('phone')
+        email = request.POST.get('email')
+        message = request.POST.get('comment')
+        print(f'Новое сообщение от {name}: {message}\nТелефон: {phone}\nE-mail: {email}')
+
+    context = {
+        'title': 'Контакты'
+    }
+
+    return render(request, 'clinic/contacts.html', context)
+
+
 class DoctorsListView(generic.ListView):
     model = Doctor
     extra_context = {
