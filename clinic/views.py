@@ -110,6 +110,24 @@ class OrderCreateView(LoginRequiredMixin, generic.CreateView):
     model = Order
     form_class = OrderForm
 
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['service_pk'] = self.request.GET.get('service_pk')
+        context_data['doctor_pk'] = self.request.GET.get('doctor_pk')
+        return context_data
+
+    def get_initial(self):
+        initial = super(OrderCreateView, self).get_initial()
+        if self.request.GET.get('service_pk'):
+            service = Service.objects.get(pk=self.request.GET.get('service_pk'))
+            initial['service'] = service
+            initial['doctor'] = Doctor.objects.filter(direction=service.direction)
+        if self.request.GET.get('doctor_pk'):
+            doctor = Doctor.objects.get(pk=self.request.GET.get('doctor_pk'))
+            initial['doctor'] = doctor
+            initial['service'] = Service.objects.filter(direction=doctor.direction)
+        return initial
+
     def form_valid(self, form):
         if form.is_valid():
             fields = form.save(commit=False)
