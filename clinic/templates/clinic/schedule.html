@@ -13,6 +13,7 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Имя врача</th>
+
               <th scope="col">Пн.</th>
               <th scope="col">Вт.</th>
               <th scope="col">Ср.</th>
@@ -27,15 +28,16 @@
                 <tr>
                   <th scope="row">{{ forloop.counter }}</th>
                   <td class="">
-                    <b>{{ doctor.name }}</b>
+                    <a class="link-dark" href="{% url 'clinic:order_create' %}?doctor_pk={{ doctor.id }}" role=""><b>{{ doctor.name }}</b></a>
                     <p><i>{{ doctor.direction }}</i></p>
                   </td>
+
                   {% for schedule in schedules %}
                     <td>
                         {% if doctor in schedule.doctor.all %}
-                            yes
+                            &#9989;
                         {% else %}
-                            no
+                            &mdash;
                         {% endif %}
 
                     </td>
