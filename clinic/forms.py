@@ -1,9 +1,9 @@
 import datetime
 
 from django import forms
-from django.forms import SelectDateWidget
+from django.forms import SelectDateWidget, HiddenInput, NumberInput
 
-from clinic.models import Order, Schedule
+from clinic.models import Order, Schedule, Service, Doctor
 from clinic.utilits import get_week_days
 
 
@@ -24,8 +24,19 @@ class OrderForm(StyleFormMixin, forms.ModelForm):
         model = Order
         fields = ('doctor', 'service', 'data', 'time')
         widgets = {
-            'data': SelectDateWidget()
+            'data': NumberInput(attrs={'type': 'date'}),
+            'time': NumberInput(attrs={'type': 'time'})
         }
+
+    def __init__(self, *args, **kwargs):
+        super(OrderForm, self).__init__(*args, **kwargs)
+        if kwargs['initial']:
+            if isinstance(kwargs['initial'].get('service'), Service):
+                self.fields['service'].queryset = Service.objects.filter(pk=kwargs['initial'].get('service').pk)
+                self.fields['doctor'].queryset = kwargs['initial'].get('doctor')
+            if isinstance(kwargs['initial'].get('doctor'), Doctor):
+                self.fields['doctor'].queryset = Doctor.objects.filter(pk=kwargs['initial'].get('doctor').pk)
+                self.fields['service'].queryset = kwargs['initial'].get('service')
 
     def clean(self):
         if not self._errors:

@@ -143,7 +143,7 @@
                       <p class="card-text">{{ discount.description | slice:150}}</p>
                   </div>
                   <div class="card-footer bg-transparent">
-                      <a class="btn btn-outline-primary" href="{% url 'clinic:order_create' %}" role="button">Записаться</a>
+                      <a class="btn btn-outline-primary" href="{% url 'clinic:order_create' %}?service_pk={{ discount.id }}" role="button">Записаться</a>
                       <a class="btn btn-outline-dark mx-2" href="{% url 'clinic:service' discount.id %}" role="button">Подробнее</a>
                   </div>
               </div>

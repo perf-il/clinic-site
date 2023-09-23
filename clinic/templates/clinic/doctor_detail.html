@@ -35,7 +35,7 @@
         <div class="mb-3 mx-auto" style="max-width: 540px;">
           <div class="row g-0">
               <p>
-                  <a class="btn btn-lg btn-outline-primary" href="{% url 'clinic:order_create' %}" role="button">Записаться</a>
+                  <a class="btn btn-lg btn-outline-primary" href="{% url 'clinic:order_create' %}?doctor_pk={{ doctor.id }}" role="button">Записаться</a>
                   <a class="btn btn-lg btn-outline-dark mx-2" href="{% url 'clinic:all_doctors' %}" role="button">Вернуться к списку</a>
               </p>
           </div>

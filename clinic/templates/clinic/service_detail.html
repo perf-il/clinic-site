@@ -27,7 +27,7 @@
                         {% endif %}
                 </div>
                 <p class="">
-                    <a class="btn btn-lg btn-outline-primary" href="{% url 'clinic:order_create' %}" role="button">Записаться</a>
+                    <a class="btn btn-lg btn-outline-primary" href="{% url 'clinic:order_create' %}?service_pk={{ object.id }}" role="button">Записаться</a>
                     <a class="btn btn-lg btn-outline-dark mx-2" href="{% url 'clinic:all_services' %}" role="button">Вернуться в каталог</a>
 
                 </p>
