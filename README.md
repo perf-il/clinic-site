@@ -5,8 +5,25 @@
 
 
 Сайт написан с помощью фреймворка Django v4.2.5 с применением следующего стека:
+<style>
+   .stack {
+      border: 1px solid black;
+      border-radius: 12px;
+      padding: 5px 8px;
+      font-color: white;
+      text-align: center;
+      margin: 5px;
+   }
+</style>
 
-<kbd>PostgresSQL</kbd>, <kbd>ORM</kbd>, <kbd>Django</kbd>, <kbd>Templates</kbd>, <kbd>Forms</kbd>, <kbd>Auth</kbd>, <kbd>Git</kbd> 
+<span class="stack" style="background: #FF6633;">PostgresSQL</span> 
+<span class="stack" style="background: #6633FF;">Django</span> 
+<span class="stack" style="background: #3333CC;">Templates</span> 
+<span class="stack" style="background: #006666;">Forms</span> 
+<span class="stack" style="background: #CC0066;">Auth</span> 
+<span class="stack" style="background: #666666;">Git</span> 
+<span class="stack" style="background: #660000;">ORM</span> 
+
 
 ------------------------
 
